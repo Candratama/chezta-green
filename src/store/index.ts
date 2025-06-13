@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { GreenhouseZone, ControlState, Settings } from '../types';
-import { generateMockZoneData, getConnectionStatus } from '../data/mockData';
 
 interface State {
   zones: GreenhouseZone[];
@@ -15,7 +14,7 @@ interface State {
     status: string;
     waiting: boolean;
   };
-  setZones: (zones: GreenhouseZone[]) => void;
+  setZones: (zones: GreenhouseZone[] | ((current: GreenhouseZone[]) => GreenhouseZone[])) => void;
   setConnectionStatus: (status: 'connected' | 'connecting' | 'disconnected') => void;
   setLastUpdated: (date: Date) => void;
   setShowSettings: (show: boolean) => void;
@@ -51,7 +50,9 @@ export const useStore = create<State>((set) => ({
     status: 'IDEAL',
     waiting: false,
   },
-  setZones: (zones) => set({ zones }),
+  setZones: (zones) => set((state) => ({
+    zones: typeof zones === 'function' ? zones(state.zones) : zones
+  })),
   setConnectionStatus: (status) => set({ connectionStatus: status }),
   setLastUpdated: (date) => set({ lastUpdated: date }),
   setShowSettings: (show) => set({ showSettings: show }),

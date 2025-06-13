@@ -58,12 +58,69 @@ body {
     4px 4px 8px var(--shadow-color),
     -4px -4px 8px rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .neumorphic-button:active {
   box-shadow: 
     inset 4px 4px 8px var(--shadow-color),
     inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+.neumorphic-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Real-time data animations */
+@keyframes dataUpdate {
+  0% { 
+    transform: scale(1);
+    background-color: var(--card-color);
+  }
+  50% { 
+    transform: scale(1.02);
+    background-color: rgba(74, 222, 128, 0.1);
+  }
+  100% { 
+    transform: scale(1);
+    background-color: var(--card-color);
+  }
+}
+
+.data-updated {
+  animation: dataUpdate 0.6s ease-in-out;
+}
+
+/* Connection status indicators */
+@keyframes connectionPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.connection-indicator {
+  position: relative;
+}
+
+.connection-indicator::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  animation: connectionPulse 2s infinite;
+}
+
+.connection-indicator.disconnected::after {
+  background-color: #ef4444;
+}
+
+.connection-indicator.connecting::after {
+  background-color: #f59e0b;
+  animation: connectionPulse 1s infinite;
 }
 
 /* Progress bar animation */
@@ -90,6 +147,22 @@ body {
   animation: progress 1s ease-out;
 }
 
+/* Loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
 /* Connecting animation */
 @keyframes pulse {
   0% { opacity: 0.4; }
@@ -99,4 +172,38 @@ body {
 
 .connecting {
   animation: pulse 1.5s infinite;
+}
+
+/* Bounce animation for connection dots */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
 }
