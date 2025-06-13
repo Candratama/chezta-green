@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -124,22 +123,6 @@ body {
   animation: connectionPulse 1s infinite;
 }
 
-/* Chart animations */
-@keyframes chartLineGrow {
-  from {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 0;
-  }
-}
-
-.chart-line {
-  animation: chartLineGrow 2s ease-in-out;
-}
-
 /* Progress bar animation */
 @keyframes progress {
   0% { width: 0; }
@@ -223,29 +206,4 @@ body {
 
 .animate-slide-up {
   animation: slideUp 0.6s ease-out;
-}
-
-/* Chart hover effects */
-.chart-container:hover .chart-tooltip {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.chart-tooltip {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.2s ease-in-out;
-}
-
-/* Responsive chart scaling */
-@media (max-width: 768px) {
-  .chart-container {
-    height: 140px;
-  }
-}
-
-@media (max-width: 640px) {
-  .chart-container {
-    height: 120px;
-  }
 }
