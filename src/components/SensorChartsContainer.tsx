@@ -77,7 +77,7 @@ const SensorChartsContainer: React.FC = () => {
             <h3 className="text-xl font-semibold text-neutral-700">{zone.name}</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SensorChartCard
               title="Temperature"
               unit={zone.temperature.unit}
