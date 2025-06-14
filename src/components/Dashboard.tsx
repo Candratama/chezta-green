@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import StatusHeader from './StatusHeader';
 import ZoneCard from './ZoneCard';
 import PPMCalibrator from './PPMCalibrator';
+import SensorChartsContainer from './SensorChartsContainer';
 import { useStore } from '../store';
 import { useWebSocket } from '../hooks/useWebSocket';
 
@@ -107,6 +108,8 @@ const Dashboard: React.FC = () => {
           ))
         )}
       </main>
+      
+      <SensorChartsContainer />
       
       <div className="mt-6 space-y-4">
         <div className="neumorphic p-4">

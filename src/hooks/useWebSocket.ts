@@ -1,15 +1,14 @@
 import { useEffect, useCallback } from 'react';
 import { websocketService, WebSocketMessage } from '../services/websocket';
 import { useStore } from '../store';
+import { Settings } from '../types';
 
 export const useWebSocket = () => {
   const {
     setZones,
     setConnectionStatus,
     setLastUpdated,
-    zones,
-    controls,
-    settings
+    addSensorDataPoint
   } = useStore();
 
   const handleSensorData = useCallback((message: WebSocketMessage) => {
@@ -29,8 +28,15 @@ export const useWebSocket = () => {
       }
     });
     
+    // Add sensor data points to history for charting
+    const now = new Date();
+    addSensorDataPoint('temperature', { timestamp: now, value: data.temperature.value });
+    addSensorDataPoint('humidity', { timestamp: now, value: data.humidity.value });
+    addSensorDataPoint('co2', { timestamp: now, value: data.co2.value });
+    addSensorDataPoint('light', { timestamp: now, value: data.light.value });
+    
     setLastUpdated(new Date());
-  }, [setZones, setLastUpdated]);
+  }, [setZones, setLastUpdated, addSensorDataPoint]);
 
   const handleConnectionStatus = useCallback((status: 'connected' | 'connecting' | 'disconnected') => {
     setConnectionStatus(status);
@@ -50,7 +56,7 @@ export const useWebSocket = () => {
     websocketService.sendMessage(message);
   }, []);
 
-  const sendSettingsUpdate = useCallback((newSettings: any) => {
+  const sendSettingsUpdate = useCallback((newSettings: Settings) => {
     const message: WebSocketMessage = {
       type: 'settings_update',
       data: newSettings,
@@ -60,7 +66,7 @@ export const useWebSocket = () => {
     websocketService.sendMessage(message);
   }, []);
 
-  const sendPPMCalibration = useCallback((calibrationData: any) => {
+  const sendPPMCalibration = useCallback((calibrationData: { value: number; timestamp: string }) => {
     const message: WebSocketMessage = {
       type: 'ppm_calibration',
       data: calibrationData,

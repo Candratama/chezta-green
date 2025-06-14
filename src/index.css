@@ -198,6 +198,23 @@ body {
   animation: fadeIn 0.5s ease-out;
 }
 
+/* Enhanced neumorphic effect for sensor values */
+.sensor-value {
+  background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+  box-shadow: 
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Icon background neumorphic effect */
+.icon-container {
+  background: linear-gradient(145deg, #f0f2f5, #e8ecf1);
+  box-shadow: 
+    2px 2px 5px rgba(0, 0, 0, 0.1),
+    -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
 /* Slide up animation */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
